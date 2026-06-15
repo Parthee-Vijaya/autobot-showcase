@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Autobot · Process Studio — fra skærmbillede til procestegning</title>
+<meta name="description" content="Autobot omsætter skærmbilleder, video, lyd og dokumenter til en redigerbar dansk swimlane-procestegning med PDD, ROI og eksport. Bygget til Kalundborg Kommune." />
+<meta property="og:title" content="Autobot · Process Studio" />
+<meta property="og:description" content="Fra skærmbilleder til færdig, redigerbar procestegning — på dansk." />
+<meta property="og:image" content="screenshots/04-orchestrate.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#faf8f2; --bg2:#f3f0e7; --ink:#1a1a18; --green:#2d6a4f; --green-d:#235440;
+    --muted:#6b6b64; --line:#e7e4da; --card:#ffffff; --soft:#eaf0ec;
+    --shadow:0 18px 50px -22px rgba(26,26,24,.28);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6;
+  }
+  a{color:inherit}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px}
+  .muted{color:var(--muted)}
+  .accent{color:var(--green)}
+
+  /* Top nav */
+  header.nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.4) blur(8px);
+    background:rgba(250,248,242,.82); border-bottom:1px solid var(--line)}
+  .nav-in{display:flex; align-items:center; gap:14px; height:62px}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:700; letter-spacing:-.01em}
+  .brand small{display:block; font-size:9.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+  .nav-links{margin-left:auto; display:flex; align-items:center; gap:8px}
+  .nav-links a.lnk{display:none; padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); text-decoration:none}
+  .nav-links a.lnk:hover{color:var(--ink); background:#fff}
+  @media(min-width:840px){ .nav-links a.lnk{display:inline-block} }
+  .btn{display:inline-flex; align-items:center; gap:7px; border-radius:11px; padding:10px 16px;
+    font-size:14px; font-weight:600; text-decoration:none; border:1px solid transparent; transition:.15s}
+  .btn-primary{background:var(--green); color:#fff}
+  .btn-primary:hover{background:var(--green-d)}
+  .btn-ghost{border-color:var(--line); background:#fff; color:var(--ink)}
+  .btn-ghost:hover{border-color:#cfccbf}
+
+  /* Hero */
+  .hero{padding:74px 0 26px; text-align:center}
+  .pill{display:inline-flex; align-items:center; gap:8px; background:var(--soft); color:var(--green-d);
+    border:1px solid #d7e3db; border-radius:999px; padding:6px 14px; font-size:12.5px; font-weight:600; margin-bottom:22px}
+  .hero h1{font-size:clamp(34px,6vw,60px); line-height:1.04; letter-spacing:-.025em; font-weight:800; margin:0 auto; max-width:14ch}
+  .hero h1 em{font-style:normal; color:var(--green)}
+  .hero p.lead{font-size:clamp(16px,2.2vw,20px); color:var(--muted); max-width:60ch; margin:20px auto 0}
+  .hero-cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:30px}
+  .hero-note{margin-top:14px; font-size:12.5px; color:var(--muted)}
+
+  /* Browser-frame til screenshots */
+  .window{border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff; box-shadow:var(--shadow)}
+  .window .bar{display:flex; align-items:center; gap:7px; padding:11px 14px; background:#f4f2ec; border-bottom:1px solid var(--line)}
+  .window .bar i{width:11px; height:11px; border-radius:50%; background:#d9d6cb; display:block}
+  .window .bar i:nth-child(1){background:#e8a09a} .window .bar i:nth-child(2){background:#e9cf94} .window .bar i:nth-child(3){background:#a9cdb4}
+  .window .bar span{margin-left:10px; font-size:11.5px; color:var(--muted)}
+  .window img{display:block; width:100%; height:auto}
+  .hero .window{max-width:980px; margin:44px auto 0}
+
+  /* Pipeline */
+  .section{padding:54px 0}
+  .section h2{font-size:clamp(24px,3.4vw,34px); letter-spacing:-.02em; font-weight:800; margin:0 0 10px}
+  .section .sub{color:var(--muted); max-width:62ch; margin:0 0 34px; font-size:16px}
+  .flow{display:flex; flex-wrap:wrap; gap:10px; align-items:stretch}
+  .flow .step{flex:1 1 150px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 15px; position:relative}
+  .flow .step b{display:block; font-size:14.5px; margin:8px 0 3px}
+  .flow .step span{font-size:12.5px; color:var(--muted)}
+  .flow .ic{width:34px; height:34px; border-radius:10px; background:var(--soft); display:flex; align-items:center; justify-content:center; font-size:17px}
+  .flow .n{position:absolute; top:13px; right:14px; font-size:11px; font-weight:700; color:#c7c3b6}
+
+  /* Feature-rækker */
+  .feat{display:grid; grid-template-columns:1fr; gap:30px; align-items:center; padding:34px 0; border-top:1px solid var(--line)}
+  @media(min-width:860px){
+    .feat{grid-template-columns:1fr 1.15fr; gap:54px}
+    .feat.flip .txt{order:2} .feat.flip .shot{order:1}
+  }
+  .feat .tag{font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--green)}
+  .feat h3{font-size:clamp(21px,2.6vw,27px); letter-spacing:-.02em; margin:10px 0 12px; font-weight:750}
+  .feat p{color:var(--muted); margin:0 0 14px; font-size:15.5px}
+  .feat ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px}
+  .feat li{font-size:14px; padding-left:24px; position:relative}
+  .feat li::before{content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700}
+
+  /* Funktions-grid */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px}
+  .grid .c{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px}
+  .grid .c .ic{font-size:20px}
+  .grid .c b{display:block; margin:10px 0 4px; font-size:15px}
+  .grid .c span{font-size:13px; color:var(--muted)}
+
+  /* Tech */
+  .tech{background:var(--bg2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+  .chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:8px}
+  .chip{background:#fff; border:1px solid var(--line); border-radius:999px; padding:7px 14px; font-size:13px; font-weight:500}
+
+  footer{padding:46px 0 60px; text-align:center; color:var(--muted); font-size:13.5px}
+  footer .brand{justify-content:center; margin-bottom:14px}
+  footer a{color:var(--green); font-weight:600; text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- LOGO (genbrugt fra appen) -->
+<svg width="0" height="0" style="position:absolute"><symbol id="logo" viewBox="0 0 38 38">
+  <circle cx="19" cy="19" r="17.5" fill="none" stroke="#1a1a18" stroke-width="1.4"/>
+  <path d="M12 26 19 11l7 15M14.8 21h8.4" fill="none" stroke="#2d6a4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol></svg>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand"><svg width="30" height="30"><use href="#logo"/></svg>
+      <div>Autobot<small>Process Studio</small></div></div>
+    <nav class="nav-links">
+      <a class="lnk" href="#flow">Sådan virker det</a>
+      <a class="lnk" href="#funktioner">Funktioner</a>
+      <a class="lnk" href="#tegning">Procestegning</a>
+      <a class="btn btn-primary" href="https://procestegner.vercel.app" target="_blank" rel="noopener">Åbn appen ↗</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="pill">🤖 POC · Kalundborg Kommune</span>
+    <h1>Fra skærmbilleder til <em>færdig procestegning</em> — på dansk</h1>
+    <p class="lead">Autobot læser dine skærmbilleder, videoer, lydoptagelser og dokumenter,
+      skriver et struktureret dansk overblik og tegner en redigerbar swimlane-proces — med
+      PDD-dokumentation, ROI-beregning og eksport.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://procestegner.vercel.app" target="_blank" rel="noopener">Prøv den live ↗</a>
+      <a class="btn btn-ghost" href="#tegning">Se procestegningen</a>
+    </div>
+    <p class="hero-note">Ingen installation · kører i browseren · indbygget demo uden upload</p>
+    <div class="window">
+      <div class="bar"><i></i><i></i><i></i><span>Autobot · Procestegning</span></div>
+      <img src="screenshots/04-orchestrate.png" alt="Autobots procestegning med swimlanes" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section class="section" id="flow">
+  <div class="wrap">
+    <h2>Sådan virker det</h2>
+    <p class="sub">Fem trin fra rå optagelse til en proces, der kan vises, redigeres og dokumenteres — uden at tegne en eneste kasse i hånden.</p>
+    <div class="flow">
+      <div class="step"><span class="n">01</span><div class="ic">📥</div><b>Upload</b><span>Skærmbilleder, video, lyd, PDF eller PowerPoint.</span></div>
+      <div class="step"><span class="n">02</span><div class="ic">🧠</div><b>AI-analyse</b><span>NVIDIA Nemotron læser hvad der sker på skærmen.</span></div>
+      <div class="step"><span class="n">03</span><div class="ic">📝</div><b>Overblik</b><span>Et trinvist dansk overblik du kan rette.</span></div>
+      <div class="step"><span class="n">04</span><div class="ic">🗺️</div><b>Procestegning</b><span>Automatisk swimlane-diagram, fuldt redigerbart.</span></div>
+      <div class="step"><span class="n">05</span><div class="ic">📊</div><b>PDD · ROI · eksport</b><span>Dokumentation, business case og PNG/SVG.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE: Forside -->
+<section class="section" style="padding-top:8px">
+  <div class="wrap">
+    <div class="feat">
+      <div class="txt">
+        <span class="tag">Porteføljeoverblik</span>
+        <h3>Alle processer ét sted</h3>
+        <p>Forsiden samler hele RPA-porteføljen grupperet pr. fagenhed — med status, ansvarlige, fagsystemer og ROI. Egne Autobot-projekter flettes ind sammen med driften.</p>
+        <ul><li>Søg og filtrér på udvikler, ansvarlig, fagenhed og status</li><li>"Kræver handling"-overblik når noget fejler</li><li>Klik en proces for at åbne den</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Forside · Aktive processer</span></div>
+        <img src="screenshots/01-forside.png" alt="Forside med porteføljeoverblik" loading="lazy" /></div>
+    </div>
+
+    <!-- Analyse -->
+    <div class="feat flip">
+      <div class="txt">
+        <span class="tag">Upload &amp; analysér</span>
+        <h3>Træk materialet ind — AI gør resten</h3>
+        <p>Skærmbilleder, skærmoptagelser, en lydforklaring eller eksisterende dokumentation. Autobot analyserer det hele og streamer beskrivelsen live mens den skrives.</p>
+        <ul><li>Billeder, video-keyframes, lyd, PDF, Word &amp; PowerPoint</li><li>Live-streaming af modellens svar</li><li>Robust batch-kørsel med automatisk genforsøg</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Analyse · Upload</span></div>
+        <img src="screenshots/02-analyse.png" alt="Upload og analyse" loading="lazy" /></div>
+    </div>
+
+    <!-- Overblik -->
+    <div class="feat">
+      <div class="txt">
+        <span class="tag">Struktureret overblik</span>
+        <h3>Et dansk overblik du kan stole på</h3>
+        <p>Den multimodale model skriver en trinvis beskrivelse på dansk af præcis hvad der sker. Du retter teksten, før den bliver til en tegning — så processen bliver, som du vil have den.</p>
+        <ul><li>Trinvis, redigerbar beskrivelse</li><li>Vælg detaljeringsgrad og egne instruktioner</li><li>Grundlag for både tegning og PDD</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Automate · Struktureret overblik</span></div>
+        <img src="screenshots/03-automate.png" alt="Struktureret overblik" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEGNING (fremhævet) -->
+<section class="section" id="tegning" style="background:var(--bg2); border-top:1px solid var(--line); border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <h2>Procestegning på eget lærred</h2>
+    <p class="sub">Et helt egenudviklet tegne-lærred — bygget fra bunden uden tredjeparts-biblioteker, så musen altid reagerer. Træk trin, klik for at redigere, forbind ved at trække fra den grønne prik.</p>
+    <div class="window"><div class="bar"><i></i><i></i><i></i><span>Procestegning · swimlanes</span></div>
+      <img src="screenshots/04-orchestrate.png" alt="Procestegning med swimlanes" loading="lazy" /></div>
+
+    <div class="feat" style="border-top:none; padding-bottom:6px">
+      <div class="txt">
+        <span class="tag">Vandret ⇄ Lodret</span>
+        <h3>Vend hele flowet med ét klik</h3>
+        <p>Se processen som vandrette baner (klassisk swimlane) eller lodrette kolonner med flow oppefra og ned — alt efter hvad der passer til processen og skærmen.</p>
+        <ul><li>Bevarer trin, baner, faser og forbindelser</li><li>Automatisk pænt layout i begge retninger</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Procestegning · lodret</span></div>
+        <img src="screenshots/06-lodret.png" alt="Lodret procestegning" loading="lazy" /></div>
+    </div>
+
+    <div class="feat flip" style="padding-bottom:6px">
+      <div class="txt">
+        <span class="tag">Baner: Aktør ⇄ System</span>
+        <h3>Inddel efter hvem — eller hvilket system</h3>
+        <p>Med ét klik skifter banerne fra at vise <em>hvem</em> der udfører trinnet (sagsbehandler, robot, teamleder) til <em>hvilket system</em> det sker i (KMD Opus, Borger.dk, Excel …) — med systemets egen farve på banen.</p>
+        <ul><li>Afslører straks systemafhængigheder i en proces</li><li>Træk et trin til en anden system-bane for at skifte system</li><li>101 Kalundborg-systemer i den søgbare vælger</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Procestegning · system-baner</span></div>
+        <img src="screenshots/05-system-baner.png" alt="Baner inddelt efter system" loading="lazy" /></div>
+    </div>
+
+    <div class="feat">
+      <div class="txt">
+        <span class="tag">Redigér &amp; afspil</span>
+        <h3>Fuld kontrol over hvert trin</h3>
+        <p>Klik et trin og redigér type, beskrivelse, system, hvem der udfører det, SLA og forbindelser. Afspil derefter et gennemløb og se processen køre trin for trin.</p>
+        <ul><li>Trin-editor med forbindelser uden at trække</li><li>Højreklik → nyt trin · fortryd/gentag</li><li>Simulator der fremhæver flowet</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Procestegning · trin-editor</span></div>
+        <img src="screenshots/07-trin-editor.png" alt="Trin-editor" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDSIGT + OPGAVER -->
+<section class="section">
+  <div class="wrap">
+    <div class="feat" style="border-top:none">
+      <div class="txt">
+        <span class="tag">Indsigt</span>
+        <h3>Modenhed &amp; ROI i kroner og timer</h3>
+        <p>Autobot beregner en automatiserings-score og en business case ud fra PDD-tiderne — så værdien af automatiseringen står sort på hvidt.</p>
+        <ul><li>Modenheds- og automatiseringsscore</li><li>Sparet tid og kroner pr. år</li><li>Hvem udfører arbejdet: menneske / AI / system</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Indsigt · Score &amp; ROI</span></div>
+        <img src="screenshots/09-indsigt.png" alt="Indsigt med ROI og score" loading="lazy" /></div>
+    </div>
+
+    <div class="feat flip">
+      <div class="txt">
+        <span class="tag">Opgaver &amp; register</span>
+        <h3>Fra tegning til drift</h3>
+        <p>Hvert trin kan blive en opgave med ejer, deadline og status. Registeret holder styr på versioner, status og redigering af alle egne processer.</p>
+        <ul><li>Opgavetavle pr. proces (plan &amp; ejerskab)</li><li>Versionshistorik og statuslog</li><li>PDD-dokumentation klar til godkendelse</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Opgaver · Plan &amp; ejerskab</span></div>
+        <img src="screenshots/10-opgaver.png" alt="Opgavetavle" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNKTIONER-GRID -->
+<section class="section" id="funktioner" style="padding-top:8px">
+  <div class="wrap">
+    <h2>Og en masse mere</h2>
+    <p class="sub">Alt kører lokalt i browseren — ingen login, ingen backend. Bygget til at være hurtigt at vise frem og let at stole på.</p>
+    <div class="grid">
+      <div class="c"><div class="ic">🔎</div><b>Søgbar systemvælger</b><span>101 Kalundborg-IT-systemer med farve pr. leverandør.</span></div>
+      <div class="c"><div class="ic">📄</div><b>PDD-dokumentation</b><span>Roller, bot-konti, trigger og statistik pr. proces.</span></div>
+      <div class="c"><div class="ic">🖼️</div><b>PNG- &amp; SVG-eksport</b><span>Tag tegningen med i Visio, slides eller rapporter.</span></div>
+      <div class="c"><div class="ic">▶️</div><b>Demo uden upload</b><span>Indbyggede eksempler — klar til fremvisning på ét klik.</span></div>
+      <div class="c"><div class="ic">↩️</div><b>Fortryd / gentag</b><span>Ctrl+Z på hele tegningen — intet går tabt.</span></div>
+      <div class="c"><div class="ic">📱</div><b>Mobil &amp; tablet</b><span>Touch-venligt lærred og responsivt layout.</span></div>
+      <div class="c"><div class="ic">💾</div><b>Lokal lagring</b><span>Projekter, versioner og materiale gemmes i browseren.</span></div>
+      <div class="c"><div class="ic">🇩🇰</div><b>Dansk hele vejen</b><span>Analyse, overblik og dokumentation på dansk.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBIL -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="feat" style="border-top:1px solid var(--line)">
+      <div class="txt">
+        <span class="tag">Responsivt</span>
+        <h3>Virker også på telefonen</h3>
+        <p>Hele værktøjet — også procestegningen — er tilpasset små skærme, så det kan bruges ude hos fagenhederne på tablet og mobil.</p>
+      </div>
+      <div class="shot" style="max-width:300px; margin:0 auto">
+        <div class="window"><div class="bar"><i></i><i></i><i></i><span>Mobil</span></div>
+          <img src="screenshots/12-mobil.png" alt="Autobot på mobil" loading="lazy" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="section tech">
+  <div class="wrap">
+    <h2>Under motorhjelmen</h2>
+    <p class="sub">Moderne web-stak med en multimodal sprogmodel — og et tegne-lærred bygget helt fra bunden.</p>
+    <div class="chips">
+      <span class="chip">Next.js 16</span><span class="chip">React 19</span><span class="chip">TypeScript</span>
+      <span class="chip">Tailwind v4</span><span class="chip">Eget pointer-lærred</span>
+      <span class="chip">NVIDIA Nemotron 3 Nano Omni 30B</span><span class="chip">Zustand</span>
+      <span class="chip">Zod</span><span class="chip">IndexedDB</span><span class="chip">Playwright-e2e</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><svg width="26" height="26"><use href="#logo"/></svg>
+      <div>Autobot<small>Process Studio</small></div></div>
+    <p>Proof of concept til <strong>Kalundborg Kommune</strong> · alle viste data er fiktive demo-eksempler.<br/>
+      <a href="https://procestegner.vercel.app" target="_blank" rel="noopener">procestegner.vercel.app ↗</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

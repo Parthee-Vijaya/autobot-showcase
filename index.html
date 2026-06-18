@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Autobot · Process Studio — fra skærmbillede til procestegning</title>
-<meta name="description" content="Autobot omsætter skærmbilleder, video, lyd og dokumenter til en redigerbar dansk swimlane-procestegning med PDD, ROI og eksport. Bygget til Kalundborg Kommune." />
+<meta name="description" content="Autobot omsætter skærmbilleder, video, lyd og dokumenter til en redigerbar dansk swimlane-procestegning — med PDD, GDPR &amp; risiko, modenhed, ROI, tværgående porteføljeoverblik og eksport (PDF, BPMN). Bygget til Kalundborg Kommune." />
 <meta property="og:title" content="Autobot · Process Studio" />
 <meta property="og:description" content="Fra skærmbilleder til færdig, redigerbar procestegning — på dansk." />
 <meta property="og:image" content="screenshots/04-orchestrate.png" />
@@ -130,11 +130,11 @@
 <!-- HERO -->
 <section class="hero">
   <div class="wrap">
-    <span class="pill">🤖 POC · Kalundborg Kommune</span>
+    <span class="pill">🤖 Beta · fiktive data · Kalundborg Kommune</span>
     <h1>Fra skærmbilleder til <em>færdig procestegning</em> — på dansk</h1>
     <p class="lead">Autobot læser dine skærmbilleder, videoer, lydoptagelser og dokumenter,
       skriver et struktureret dansk overblik og tegner en redigerbar swimlane-proces — med
-      PDD-dokumentation, ROI-beregning og eksport.</p>
+      PDD-dokumentation, GDPR &amp; risiko, modenhed, ROI og tværgående porteføljeoverblik.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="https://procestegner.vercel.app" target="_blank" rel="noopener">Prøv den live ↗</a>
       <a class="btn btn-ghost" href="#tegning">Se procestegningen</a>
@@ -157,7 +157,7 @@
       <div class="step"><span class="n">02</span><div class="ic">🧠</div><b>AI-analyse</b><span>NVIDIA Nemotron læser hvad der sker på skærmen.</span></div>
       <div class="step"><span class="n">03</span><div class="ic">📝</div><b>Overblik</b><span>Et trinvist dansk overblik du kan rette.</span></div>
       <div class="step"><span class="n">04</span><div class="ic">🗺️</div><b>Procestegning</b><span>Automatisk swimlane-diagram, fuldt redigerbart.</span></div>
-      <div class="step"><span class="n">05</span><div class="ic">📊</div><b>PDD · ROI · eksport</b><span>Dokumentation, business case og PNG/SVG.</span></div>
+      <div class="step"><span class="n">05</span><div class="ic">📊</div><b>PDD · governance · overblik</b><span>Dokumentation, GDPR/risiko, ROI og eksport (PDF, BPMN, PNG/SVG).</span></div>
     </div>
   </div>
 </section>
@@ -167,17 +167,29 @@
   <div class="wrap">
     <div class="feat">
       <div class="txt">
-        <span class="tag">Porteføljeoverblik</span>
+        <span class="tag">Forside</span>
         <h3>Alle processer ét sted</h3>
-        <p>Forsiden samler hele RPA-porteføljen grupperet pr. fagenhed — med status, ansvarlige, fagsystemer og ROI. Egne Autobot-projekter flettes ind sammen med driften.</p>
-        <ul><li>Søg og filtrér på udvikler, ansvarlig, fagenhed og status</li><li>"Kræver handling"-overblik når noget fejler</li><li>Klik en proces for at åbne den</li></ul>
+        <p>Forsiden samler hele RPA-porteføljen grupperet pr. fagenhed — med status, ansvarlige, robotter og fagsystemer. Det der kræver handling ligger øverst, og systemloggen viser de seneste kørsler.</p>
+        <ul><li>Søg og filtrér på udvikler, ansvarlig, fagenhed og status</li><li>"Kræver handling"-overblik når noget fejler</li><li>Egne Autobot-projekter flettes ind med driften</li></ul>
       </div>
       <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Forside · Aktive processer</span></div>
         <img src="screenshots/01-forside.png" alt="Forside med porteføljeoverblik" loading="lazy" /></div>
     </div>
 
-    <!-- Analyse -->
+    <!-- Tværgående overblik -->
     <div class="feat flip">
+      <div class="txt">
+        <span class="tag">Porteføljeanalyse</span>
+        <h3>Hele porteføljen på ét blik</h3>
+        <p>"📊 Overblik" giver ledelsen tværgående nøgletal med ét klik — uden at forlade forsiden. Status, ejerskab, systemafhængighed og robot-flåde, beregnet ud fra processerne.</p>
+        <ul><li>Status-fordeling og hvad der kræver handling</li><li>Ejerskabs-huller: processer uden ansvarlig</li><li>Systemafhængighed — hvad rammes hvis et fagsystem falder</li></ul>
+      </div>
+      <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Forside · Porteføljeoverblik</span></div>
+        <img src="screenshots/13-overblik.png" alt="Tværgående porteføljeoverblik" loading="lazy" /></div>
+    </div>
+
+    <!-- Analyse -->
+    <div class="feat">
       <div class="txt">
         <span class="tag">Upload &amp; analysér</span>
         <h3>Træk materialet ind — AI gør resten</h3>
@@ -236,8 +248,8 @@
       <div class="txt">
         <span class="tag">Redigér &amp; afspil</span>
         <h3>Fuld kontrol over hvert trin</h3>
-        <p>Klik et trin og redigér type, beskrivelse, system, hvem der udfører det, SLA og forbindelser. Afspil derefter et gennemløb og se processen køre trin for trin.</p>
-        <ul><li>Trin-editor med forbindelser uden at trække</li><li>Højreklik → nyt trin · fortryd/gentag</li><li>Simulator der fremhæver flowet</li></ul>
+        <p>Klik et trin og redigér type, beskrivelse, fagsystem, AI-agenter/workers, SLA, persondata og data ind/ud. Afspil derefter et gennemløb (simuleret) og se hvert trin blive valideret.</p>
+        <ul><li>Agenter, SLA og data-kontrakt (ind/ud) pr. trin</li><li>Forbindelser uden at trække · højreklik → nyt trin</li><li>Simuleret kørsel — klar til ægte integration (R5)</li></ul>
       </div>
       <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Procestegning · trin-editor</span></div>
         <img src="screenshots/07-trin-editor.png" alt="Trin-editor" loading="lazy" /></div>
@@ -251,9 +263,9 @@
     <div class="feat" style="border-top:none">
       <div class="txt">
         <span class="tag">Indsigt</span>
-        <h3>Modenhed &amp; ROI i kroner og timer</h3>
-        <p>Autobot beregner en automatiserings-score og en business case ud fra PDD-tiderne — så værdien af automatiseringen står sort på hvidt.</p>
-        <ul><li>Modenheds- og automatiseringsscore</li><li>Sparet tid og kroner pr. år</li><li>Hvem udfører arbejdet: menneske / AI / system</li></ul>
+        <h3>Modenhed, governance &amp; ROI</h3>
+        <p>Autobot beregner modenhed og en business case, kører en regelbaseret proces-gennemgang og holder GDPR/risiko + "klar-til-drift" i styr — så processen er dokumenteret og forsvarlig før drift.</p>
+        <ul><li>Eksekveringsmodenhed: Manuel → AI-assisteret → Agentisk</li><li>GDPR, risiko og hård "klar-til-drift"-gate</li><li>Proces-gennemgang, ROI i timer/kr og revisionslog</li></ul>
       </div>
       <div class="shot window"><div class="bar"><i></i><i></i><i></i><span>Indsigt · Score &amp; ROI</span></div>
         <img src="screenshots/09-indsigt.png" alt="Indsigt med ROI og score" loading="lazy" /></div>
@@ -276,16 +288,17 @@
 <section class="section" id="funktioner" style="padding-top:8px">
   <div class="wrap">
     <h2>Og en masse mere</h2>
-    <p class="sub">Alt kører lokalt i browseren — ingen login, ingen backend. Bygget til at være hurtigt at vise frem og let at stole på.</p>
+    <p class="sub">Alt kører lokalt i browseren — dansk, privat og hurtigt at vise frem. Ægte data bliver i browseren; bygget til at være let at stole på.</p>
     <div class="grid">
-      <div class="c"><div class="ic">🔎</div><b>Søgbar systemvælger</b><span>101 Kalundborg-IT-systemer med farve pr. leverandør.</span></div>
-      <div class="c"><div class="ic">📄</div><b>PDD-dokumentation</b><span>Roller, bot-konti, trigger og statistik pr. proces.</span></div>
+      <div class="c"><div class="ic">🔌</div><b>Agenter, SLA &amp; data</b><span>AI-agenter/workers, frist/eskalering og data-kontrakt (ind/ud) pr. trin.</span></div>
+      <div class="c"><div class="ic">🔒</div><b>GDPR &amp; klar-til-drift</b><span>Persondata, hjemmel, risiko + hård gate før godkendelse.</span></div>
+      <div class="c"><div class="ic">📄</div><b>PDD · BPMN · pakke</b><span>Procesbeskrivelse (PDF), BPMN 2.0 og udvikler-pakke til Power Automate.</span></div>
+      <div class="c"><div class="ic">🧭</div><b>Modenhed &amp; gennemgang</b><span>Eksekveringsmodenhed + regelbaseret best-practice-tjek.</span></div>
+      <div class="c"><div class="ic">🕓</div><b>Revisionslog</b><span>Historik over status-skift og versioner — til audit/certificering.</span></div>
+      <div class="c"><div class="ic">▶️</div><b>Simuleret kørsel</b><span>Kør processen via integrations-laget — klar til live (R5).</span></div>
       <div class="c"><div class="ic">🖼️</div><b>PNG- &amp; SVG-eksport</b><span>Tag tegningen med i Visio, slides eller rapporter.</span></div>
-      <div class="c"><div class="ic">▶️</div><b>Demo uden upload</b><span>Indbyggede eksempler — klar til fremvisning på ét klik.</span></div>
-      <div class="c"><div class="ic">↩️</div><b>Fortryd / gentag</b><span>Ctrl+Z på hele tegningen — intet går tabt.</span></div>
-      <div class="c"><div class="ic">📱</div><b>Mobil &amp; tablet</b><span>Touch-venligt lærred og responsivt layout.</span></div>
-      <div class="c"><div class="ic">💾</div><b>Lokal lagring</b><span>Projekter, versioner og materiale gemmes i browseren.</span></div>
-      <div class="c"><div class="ic">🇩🇰</div><b>Dansk hele vejen</b><span>Analyse, overblik og dokumentation på dansk.</span></div>
+      <div class="c"><div class="ic">💾</div><b>Lokal &amp; privat</b><span>Alt gemmes i browseren — ægte data forlader aldrig maskinen.</span></div>
+      <div class="c"><div class="ic">🇩🇰</div><b>Dansk hele vejen</b><span>Analyse, overblik, dokumentation og UI på dansk.</span></div>
     </div>
   </div>
 </section>
@@ -316,7 +329,8 @@
       <span class="chip">Next.js 16</span><span class="chip">React 19</span><span class="chip">TypeScript</span>
       <span class="chip">Tailwind v4</span><span class="chip">Eget pointer-lærred</span>
       <span class="chip">NVIDIA Nemotron 3 Nano Omni 30B</span><span class="chip">Zustand</span>
-      <span class="chip">Zod</span><span class="chip">IndexedDB</span><span class="chip">Playwright-e2e</span>
+      <span class="chip">Zod</span><span class="chip">IndexedDB</span><span class="chip">BPMN 2.0</span>
+      <span class="chip">Security headers (CSP)</span><span class="chip">Vitest</span><span class="chip">Playwright-e2e</span>
     </div>
   </div>
 </section>
